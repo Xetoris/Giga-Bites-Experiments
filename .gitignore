@@ -102,3 +102,10 @@ dist
 
 # TernJS port file
 .tern-port
+
+# Hide secret files.
+client_secret.json
+access_token.json
+
+# IDE Stuff
+.idea/
