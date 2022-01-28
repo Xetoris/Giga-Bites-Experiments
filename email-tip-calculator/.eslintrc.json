@@ -1,7 +1,6 @@
 {
   "env": {
-    "browser": true,
-    "es2021": true,
+    "es6": true,
     "node": true
   },
   "extends": [
@@ -15,8 +14,7 @@
   },
   "plugins": [
     "@typescript-eslint",
-    "eslint-plugin-tsdoc",
-    "wdio"
+    "eslint-plugin-tsdoc"
   ],
   "rules": {
     "indent": [
