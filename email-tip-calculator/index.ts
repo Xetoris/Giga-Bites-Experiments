@@ -19,7 +19,7 @@ const queryTargetDate = new Date();
 const startSearchDate = getQueryFormattedString(queryTargetDate);
 const endSearchDate = getQueryFormattedString(getRelativeFutureDate(queryTargetDate, 1));
 
-const messageQueryText = `"GIGA BITES CAFE - Transaction Receipt" after:${startSearchDate} before:${endSearchDate}`;
+const messageQueryText = `"CAFE - Transaction Receipt" after:${startSearchDate} before:${endSearchDate}`;
 
 let messageQueryResponse: gmail_v1.Schema$ListMessagesResponse;
 let totalProcessing = 0;
