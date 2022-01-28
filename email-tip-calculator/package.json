@@ -6,7 +6,7 @@
   "type": "module",
   "scripts": {
     "test": "mocha --reporter spec",
-    "run": "node --loader ts-node/esm index.ts"
+    "start": "node --loader ts-node/esm index.ts"
   },
   "author": "cmccord4pa@gmail.com",
   "license": "ISC",
