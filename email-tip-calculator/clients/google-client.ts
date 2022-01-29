@@ -24,7 +24,7 @@ export class GoogleClient {
 	}
 
 	async getMessages(query: string, continuationToken?: string): Promise<gmail_v1.Schema$ListMessagesResponse> {
-		const apiClient = await this.getAPIEndpoint();
+		const apiClient = await this.getAPIEndpoint(this.logger);
 		const messages = await apiClient.users.messages.list({
 			userId: 'me',
 			q: query,
@@ -35,7 +35,7 @@ export class GoogleClient {
 	}
 
 	async getMessageBody(id: string): Promise<gmail_v1.Schema$Message | null> {
-		const apiClient = await this.getAPIEndpoint();
+		const apiClient = await this.getAPIEndpoint(this.logger);
 
 		const resp = await apiClient.users.messages.get({
 			userId: 'me',
@@ -45,9 +45,9 @@ export class GoogleClient {
 		return resp?.data;
 	}
 
-	private async getAPIEndpoint(): Promise<APIEndpoint> {
+	private async getAPIEndpoint(logger: Logger = null): Promise<APIEndpoint> {
 		if (!this.apiClient) {
-			const client = await this.getAuthedClient();
+			const client = await this.getAuthedClient(logger);
 
 			this.apiClient = gmail({version: 'v1', auth: client});
 		}
@@ -121,17 +121,13 @@ export class GoogleClient {
 		let authCode;
 		let rl: readline.Interface;
 		try {
-			if (logger) {
-				logger.info(`Please visit this url and authorize the app.\n It will give you a short code to enter.\n Auth Url: ${authUrl}`);
-			}
-
 			rl = readline.createInterface({
 				input: process.stdin,
 				output: process.stdout
 			});
 
 			const questionPromise = promisify(rl.question).bind(rl);
-			authCode = await questionPromise('Please enter the code here:');
+			authCode = await questionPromise(`Please visit this url and authorize the app.\n It will give you a short code to enter.\n Auth Url: ${authUrl}\n\nEnter the code here:`);
 		} finally {
 			if (logger) {
 				logger.info('Thank you for attempting the authentication process!\nIf you still have the authentication link tab open, please close it! DO NOT LEAVE IT OPEN!');
