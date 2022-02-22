@@ -4,6 +4,14 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.0.3] - 02-22-2022
+
+Bug fix.
+
+### Changed
+- Added logic to handle an auth token existing, but being expired. This would originally cause an error log to be dumped.
+Now it will simply prompt the user to renew the token and re-write the file.
+
 ## [0.0.2] - 01-29-2022
 
 Bug Fixes.

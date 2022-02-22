@@ -65,7 +65,9 @@ export class GoogleClient {
 		);
 
 		let accessToken = await GoogleClient.readTokenFile(this.tokenPath, logger);
-		if (!accessToken) {
+
+		if(!accessToken || !accessToken?.expiry_date || new Date(accessToken.expiry_date) < new Date()) {
+			this.logger.warn('Unable to locate valid access token!')
 			accessToken = await GoogleClient.promptUserForAccess(client, this.scopes, logger);
 
 			await GoogleClient.writeTokenFile(this.tokenPath, accessToken, logger);
